@@ -29,7 +29,7 @@ class Charisma(var score: Int = 0) {
             in 6..8 -> 6
             in 9..12 -> 7
             in 13..15 -> 8
-            in 16..16 -> 9
+            in 16..17 -> 9
             18 -> 10
             else -> 0
         }
