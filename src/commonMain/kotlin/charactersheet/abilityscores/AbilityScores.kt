@@ -20,4 +20,8 @@ class AbilityScores {
         constitution = (1..6).random() + (1..6).random() + (1..6).random()
         charisma = (1..6).random() + (1..6).random() + (1..6).random()
     }
+
+    enum class Type {
+        STR, INT, WIS, DEX, CON, CHA
+    }
 }
