@@ -5,9 +5,9 @@
       <configuration version="3" platform="JavaScript " allPlatforms="JS []" useProjectSettings="false" isTestModule="true" externalProjectId="BXCharacterGenerator">
         <dependsOnModuleNames>BXCharacterGenerator_commonTest</dependsOnModuleNames>
         <sourceSets>
+          <sourceSet>com.example.BXCharacterGenerator.jsMain</sourceSet>
           <sourceSet>com.example.BXCharacterGenerator.commonTest</sourceSet>
           <sourceSet>com.example.BXCharacterGenerator.commonMain</sourceSet>
-          <sourceSet>com.example.BXCharacterGenerator.jsMain</sourceSet>
         </sourceSets>
         <newMppModelJpsModuleKind>COMPILATION_AND_SOURCE_SET_HOLDER</newMppModelJpsModuleKind>
         <externalSystemTestTasks>

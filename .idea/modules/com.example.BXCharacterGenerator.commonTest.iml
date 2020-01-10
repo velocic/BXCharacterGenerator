@@ -9,6 +9,7 @@
           <externalSystemTestTask>jsNodeTest|BXCharacterGenerator:jsTest|js</externalSystemTestTask>
           <externalSystemTestTask>jvmTest|BXCharacterGenerator:jvmTest|jvm</externalSystemTestTask>
           <externalSystemTestTask>linuxTest|BXCharacterGenerator:linuxTest|linux</externalSystemTestTask>
+          <externalSystemTestTask>macTest|BXCharacterGenerator:macTest|mac</externalSystemTestTask>
         </externalSystemTestTasks>
         <compilerSettings />
         <compilerArguments>

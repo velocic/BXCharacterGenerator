@@ -6,11 +6,11 @@
         <dependsOnModuleNames>BXCharacterGenerator_commonTest</dependsOnModuleNames>
         <sourceSets>
           <sourceSet>com.example.BXCharacterGenerator.commonTest</sourceSet>
-          <sourceSet>com.example.BXCharacterGenerator.linuxMain</sourceSet>
+          <sourceSet>com.example.BXCharacterGenerator.macMain</sourceSet>
           <sourceSet>com.example.BXCharacterGenerator.commonMain</sourceSet>
         </sourceSets>
         <newMppModelJpsModuleKind>COMPILATION_AND_SOURCE_SET_HOLDER</newMppModelJpsModuleKind>
-        <externalSystemTestTasks>linuxTest|BXCharacterGenerator:linuxTest|linux</externalSystemTestTasks>
+        <externalSystemTestTasks>macTest|BXCharacterGenerator:macTest|mac</externalSystemTestTasks>
         <compilerSettings />
         <compilerArguments>
           <option name="languageVersion" value="1.3" />

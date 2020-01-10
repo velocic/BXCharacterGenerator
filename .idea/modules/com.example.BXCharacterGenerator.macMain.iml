@@ -2,15 +2,12 @@
 <module version="4">
   <component name="FacetManager">
     <facet type="kotlin-language" name="Kotlin">
-      <configuration version="3" platform="Native " allPlatforms="Native []" useProjectSettings="false" isTestModule="true" externalProjectId="BXCharacterGenerator">
-        <dependsOnModuleNames>BXCharacterGenerator_commonTest</dependsOnModuleNames>
+      <configuration version="3" platform="Native " allPlatforms="Native []" useProjectSettings="false" isTestModule="false" externalProjectId="BXCharacterGenerator">
+        <dependsOnModuleNames>BXCharacterGenerator_commonMain</dependsOnModuleNames>
         <sourceSets>
-          <sourceSet>com.example.BXCharacterGenerator.commonTest</sourceSet>
-          <sourceSet>com.example.BXCharacterGenerator.linuxMain</sourceSet>
           <sourceSet>com.example.BXCharacterGenerator.commonMain</sourceSet>
         </sourceSets>
         <newMppModelJpsModuleKind>COMPILATION_AND_SOURCE_SET_HOLDER</newMppModelJpsModuleKind>
-        <externalSystemTestTasks>linuxTest|BXCharacterGenerator:linuxTest|linux</externalSystemTestTasks>
         <compilerSettings />
         <compilerArguments>
           <option name="languageVersion" value="1.3" />

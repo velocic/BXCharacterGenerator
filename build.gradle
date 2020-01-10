@@ -18,6 +18,7 @@ kotlin {
         }
     }
     linuxX64("linux")
+    macosX64("mac")
 
     sourceSets {
         commonMain {
@@ -55,6 +56,10 @@ kotlin {
         linuxMain {
         }
         linuxTest {
+        }
+        macMain {
+        }
+        macTest {
         }
     }
 }
