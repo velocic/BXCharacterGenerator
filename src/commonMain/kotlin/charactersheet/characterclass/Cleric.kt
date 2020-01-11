@@ -6,8 +6,8 @@ import charactersheet.equipment.Weapon
 import charactersheet.equipment.allBasicArmor
 import charactersheet.equipment.allBasicWeapons
 
-class Cleric : CharacterClass(
-    AbilityScores.Type.WIS,
+internal class Cleric : CharacterClass(
+    listOf(AbilityScores.Type.WIS),
     1..6,
     true,
     listOf(
@@ -15,20 +15,20 @@ class Cleric : CharacterClass(
         SpecialAbility(1, "Turning the Undead")
     ),
     listOf(
-        ProgressionRow(0, 1 to 1..6, 19, 0, ProgressionRow.SavingThrows(11, 12, 14, 16, 15), listOf(0, 0, 0, 0, 0)),
-        ProgressionRow(1500, 2 to 1..6, 19, 0, ProgressionRow.SavingThrows(11, 12, 14, 16, 15), listOf(1, 0, 0, 0, 0)),
-        ProgressionRow(3000, 3 to 1..6, 19, 0, ProgressionRow.SavingThrows(11, 12, 14, 16, 15), listOf(2, 0, 0, 0, 0)),
-        ProgressionRow(6000, 4 to 1..6, 19, 0, ProgressionRow.SavingThrows(11, 12, 14, 16, 15), listOf(2, 1, 0, 0, 0)),
-        ProgressionRow(12000, 5 to 1..6, 17, 2, ProgressionRow.SavingThrows(9, 10, 12, 14, 12), listOf(2, 2, 0, 0, 0)),
-        ProgressionRow(25000, 6 to 1..6, 17, 2, ProgressionRow.SavingThrows(9, 10, 12, 14, 12), listOf(2, 2, 1, 1, 0)),
-        ProgressionRow(50000, 7 to 1..6, 17, 2, ProgressionRow.SavingThrows(9, 10, 12, 14, 12), listOf(2, 2, 2, 1, 1)),
-        ProgressionRow(100000, 8 to 1..6, 17, 2, ProgressionRow.SavingThrows(9, 10, 12, 14, 12), listOf(3, 3, 2, 2, 1)),
-        ProgressionRow(200000, 9 to 1..6, 14, 5, ProgressionRow.SavingThrows(6, 7, 9, 11, 9), listOf(3, 3, 3, 2, 2)),
-        ProgressionRow(300000, 10 to 1..6, 14, 5, ProgressionRow.SavingThrows(6, 7, 9, 11, 9), listOf(4, 4, 3, 3, 2)),
-        ProgressionRow(400000, 11 to 1..6, 14, 5, ProgressionRow.SavingThrows(6, 7, 9, 11, 9), listOf(4, 4, 4, 3, 3)),
-        ProgressionRow(500000, 12 to 1..6, 14, 5, ProgressionRow.SavingThrows(6, 7, 9, 11, 9), listOf(5, 5, 4, 4, 3)),
-        ProgressionRow(600000, 13 to 1..6, 12, 7, ProgressionRow.SavingThrows(3, 5, 7, 8, 7), listOf(5, 5, 5, 4, 4)),
-        ProgressionRow(700000, 14 to 1..6, 12, 7, ProgressionRow.SavingThrows(3, 5, 7, 8, 7), listOf(6, 5, 5, 5, 4))
+        SpellcasterProgressionRow(0, 1 to 1..6, 19, 0, BasicProgressionRow.SavingThrows(11, 12, 14, 16, 15), listOf(0, 0, 0, 0, 0)),
+        SpellcasterProgressionRow(1500, 2 to 1..6, 19, 0, BasicProgressionRow.SavingThrows(11, 12, 14, 16, 15), listOf(1, 0, 0, 0, 0)),
+        SpellcasterProgressionRow(3000, 3 to 1..6, 19, 0, BasicProgressionRow.SavingThrows(11, 12, 14, 16, 15), listOf(2, 0, 0, 0, 0)),
+        SpellcasterProgressionRow(6000, 4 to 1..6, 19, 0, BasicProgressionRow.SavingThrows(11, 12, 14, 16, 15), listOf(2, 1, 0, 0, 0)),
+        SpellcasterProgressionRow(12000, 5 to 1..6, 17, 2, BasicProgressionRow.SavingThrows(9, 10, 12, 14, 12), listOf(2, 2, 0, 0, 0)),
+        SpellcasterProgressionRow(25000, 6 to 1..6, 17, 2, BasicProgressionRow.SavingThrows(9, 10, 12, 14, 12), listOf(2, 2, 1, 1, 0)),
+        SpellcasterProgressionRow(50000, 7 to 1..6, 17, 2, BasicProgressionRow.SavingThrows(9, 10, 12, 14, 12), listOf(2, 2, 2, 1, 1)),
+        SpellcasterProgressionRow(100000, 8 to 1..6, 17, 2, BasicProgressionRow.SavingThrows(9, 10, 12, 14, 12), listOf(3, 3, 2, 2, 1)),
+        SpellcasterProgressionRow(200000, 9 to 1..6, 14, 5, BasicProgressionRow.SavingThrows(6, 7, 9, 11, 9), listOf(3, 3, 3, 2, 2)),
+        SpellcasterProgressionRow(300000, 9 to 1..6, 14, 5, BasicProgressionRow.SavingThrows(6, 7, 9, 11, 9), listOf(4, 4, 3, 3, 2)),
+        SpellcasterProgressionRow(400000, 9 to 1..6, 14, 5, BasicProgressionRow.SavingThrows(6, 7, 9, 11, 9), listOf(4, 4, 4, 3, 3)),
+        SpellcasterProgressionRow(500000, 9 to 1..6, 14, 5, BasicProgressionRow.SavingThrows(6, 7, 9, 11, 9), listOf(5, 5, 4, 4, 3)),
+        SpellcasterProgressionRow(600000, 9 to 1..6, 12, 7, BasicProgressionRow.SavingThrows(3, 5, 7, 8, 7), listOf(5, 5, 5, 4, 4)),
+        SpellcasterProgressionRow(700000, 9 to 1..6, 12, 7, BasicProgressionRow.SavingThrows(3, 5, 7, 8, 7), listOf(6, 5, 5, 5, 4))
     ),
     allowedArmor = allBasicArmor,
     allowedWeapons = allBasicWeapons.filter { Weapon.Qualities.BLUNT in it.qualities },
@@ -37,5 +37,7 @@ class Cleric : CharacterClass(
         Language.COMMON
     )
 ) {
-
+    override fun calculateHitPoints(): Int {
+        return 0
+    }
 }
