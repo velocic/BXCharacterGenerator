@@ -29,7 +29,7 @@ internal class Thief : CharacterClass(
         ThiefProgressionRow(400000, 9 to 1..4, 14, 5, BasicProgressionRow.SavingThrows(10, 11, 9, 12, 10), ThiefSkillRow(97, 90, 1..5, 85, 95, 95, 95)),
         ThiefProgressionRow(520000, 9 to 1..4, 14, 5, BasicProgressionRow.SavingThrows(10, 11, 9, 12, 10), ThiefSkillRow(98, 95, 1..5, 90, 96, 96, 105)),
         ThiefProgressionRow(640000, 9 to 1..4, 12, 7, BasicProgressionRow.SavingThrows(8, 9, 7, 10, 8), ThiefSkillRow(99, 97, 1..5, 95, 98, 97, 115)),
-        ThiefProgressionRow(760000, 9 to 1..4, 12, 7, BasicProgressionRow.SavingThrows(8, 9, 7, 10, 8), ThiefSkillRow(99, 99, 1..5, 99, 99 99, 125))
+        ThiefProgressionRow(760000, 9 to 1..4, 12, 7, BasicProgressionRow.SavingThrows(8, 9, 7, 10, 8), ThiefSkillRow(99, 99, 1..5, 99, 99, 99, 125))
     ),
     allowedArmor = listOf(leatherArmor),
     allowedWeapons = allBasicWeapons,
