@@ -2,6 +2,7 @@ package charactersheet.characterclass
 
 import charactersheet.Language
 import charactersheet.abilityscores.AbilityScores
+import charactersheet.abilityscores.Constitution
 import charactersheet.equipment.allBasicWeapons
 import charactersheet.equipment.leatherArmor
 
@@ -38,7 +39,7 @@ internal class Thief : CharacterClass(
         Language.COMMON
     )
 ) {
-    override fun calculateHitPoints(): Int {
+    override fun calculateMaxHitPoints(classLevel: Int, constitution: Constitution): Int {
         return 0
     }
 }

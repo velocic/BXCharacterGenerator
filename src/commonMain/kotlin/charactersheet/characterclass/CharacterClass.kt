@@ -1,7 +1,7 @@
 package charactersheet.characterclass
 
 import charactersheet.Language
-import charactersheet.abilityscores.AbilityScores
+import charactersheet.abilityscores.*
 import charactersheet.equipment.Armor
 import charactersheet.equipment.Weapon
 import charactersheet.equipment.allBasicArmor
@@ -17,8 +17,52 @@ internal abstract class CharacterClass(
     val allowedWeapons: List<Weapon> = listOf(),
     val baseLanguages: List<Language> = listOf()
 ) {
-    abstract fun calculateHitPoints(): Int
+    abstract fun calculateMaxHitPoints(classLevel: Int, constitution: Constitution): Int
 
+    open fun calculateSavingThrows(classLevel: Int, wisdom: Wisdom): BasicProgressionRow.SavingThrows {
+        val baseSaves = progression[classLevel].savingThrows
+
+        return BasicProgressionRow.SavingThrows(
+            baseSaves.deathOrPoison + wisdom.magicSavesModifier,
+            baseSaves.wands + wisdom.magicSavesModifier,
+            baseSaves.paralysisOrPetrify + wisdom.magicSavesModifier,
+            baseSaves.breathAttacks,
+            baseSaves.spellsRodsAndStaves + wisdom.magicSavesModifier
+        )
+    }
+
+    open fun calculateAscendingAttackBonusesForWeapon(classLevel: Int, weapon: Weapon, strength: Strength, dexterity: Dexterity): AttackBonuses {
+        val baseAttackBonus = progression[classLevel].ascendingACAttackBonus
+        val meleeAttackBonus = if (Weapon.Qualities.MELEE in weapon.qualities) baseAttackBonus + strength.meleeModifier else 0
+        val missileAttackBonus = if (Weapon.Qualities.MISSILE in weapon.qualities) baseAttackBonus + dexterity.missileModifier else 0
+
+        return AttackBonuses(meleeAttackBonus, missileAttackBonus)
+    }
+
+    open fun calculateKnownLanguages(intelligence: Intelligence): List<Language> {
+        val numAdditionalLanguages = intelligence.spokenLanguagesModifier
+        val extraLanguages = mutableListOf<Language>()
+
+        if (numAdditionalLanguages == 0) {
+            return baseLanguages
+        }
+
+        val languagePool = Language.values()
+        while (extraLanguages.size < numAdditionalLanguages) {
+            val randomLanguage = languagePool.random()
+            if (randomLanguage in extraLanguages) {
+                continue
+            }
+            extraLanguages.add(randomLanguage)
+        }
+
+        return baseLanguages + extraLanguages
+    }
+
+    open fun calculateIndividualInitiativeBonus(dexterity: Dexterity): Int =
+        dexterity.initiativeModifier
+
+    abstract fun calculateClassBasedExperienceBonus(strength: Strength, intelligence: Intelligence, dexterity: Dexterity, charisma: Charisma, wisdom: Wisdom, constitution: Constitution): Double
 }
 
 internal data class AbilityScoreRequirement(
@@ -56,3 +100,7 @@ internal data class SpecialAbility(
     val name: String
 )
 
+internal data class AttackBonuses(
+    val melee: Int,
+    val missile: Int
+)

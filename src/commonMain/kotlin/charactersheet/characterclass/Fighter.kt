@@ -2,6 +2,7 @@ package charactersheet.characterclass
 
 import charactersheet.Language
 import charactersheet.abilityscores.AbilityScores
+import charactersheet.abilityscores.Constitution
 import charactersheet.equipment.allBasicArmor
 import charactersheet.equipment.allBasicWeapons
 
@@ -36,7 +37,7 @@ internal class Fighter : CharacterClass(
         Language.COMMON
     )
 ) {
-    override fun calculateHitPoints(): Int {
+    override fun calculateMaxHitPoints(classLevel: Int, constitution: Constitution): Int {
         return 0
     }
 }
