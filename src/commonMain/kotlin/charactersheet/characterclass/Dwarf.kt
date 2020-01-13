@@ -1,11 +1,11 @@
 package charactersheet.characterclass
 
 import charactersheet.Language
-import charactersheet.abilityscores.AbilityScores
-import charactersheet.abilityscores.Constitution
+import charactersheet.abilityscores.*
 import charactersheet.equipment.Weapon
 import charactersheet.equipment.allBasicArmor
 import charactersheet.equipment.allBasicWeapons
+import kotlin.math.max
 
 internal class Dwarf : CharacterClass(
     listOf(AbilityScores.Type.STR),
@@ -45,6 +45,24 @@ internal class Dwarf : CharacterClass(
     )
 ) {
     override fun calculateMaxHitPoints(classLevel: Int, constitution: Constitution): Int {
-        return 0
+        var totalHP = 0
+
+        (1..classLevel).forEach {
+            when (it) {
+                in 1..9 -> totalHP += max(hitDice.random() + constitution.hitPointsModifier, 1)
+                else -> totalHP += 3
+            }
+        }
+
+        return totalHP
     }
+
+    override fun calculateClassBasedExperienceBonus(
+        strength: Strength,
+        intelligence: Intelligence,
+        dexterity: Dexterity,
+        charisma: Charisma,
+        wisdom: Wisdom,
+        constitution: Constitution
+    ): Double = BasePrimeRequisite(strength.score).XPModifier
 }
