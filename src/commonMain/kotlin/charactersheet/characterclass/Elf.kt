@@ -1,10 +1,10 @@
 package charactersheet.characterclass
 
 import charactersheet.Language
-import charactersheet.abilityscores.AbilityScores
-import charactersheet.abilityscores.Constitution
+import charactersheet.abilityscores.*
 import charactersheet.equipment.allBasicArmor
 import charactersheet.equipment.allBasicWeapons
+import kotlin.math.max
 
 internal class Elf : CharacterClass(
     listOf(AbilityScores.Type.INT, AbilityScores.Type.STR),
@@ -42,8 +42,27 @@ internal class Elf : CharacterClass(
         Language.ORCISH
     )
 ) {
-    override fun calculateMaxHitPoints(classLevel: Int, constitution: Constitution): Int {
-        return 0
+    override fun calculateMaxHitPoints(classLevel: Int, constitution: Constitution): Int =
+        (1..classLevel).fold(0) { result, current ->
+            result + when (current) {
+                in 1..9 -> max(hitDice.random() + constitution.hitPointsModifier, 1)
+                else -> 2
+            }
+        }
+
+    override fun calculateClassBasedExperienceBonus(
+        strength: Strength,
+        intelligence: Intelligence,
+        dexterity: Dexterity,
+        charisma: Charisma,
+        wisdom: Wisdom,
+        constitution: Constitution
+    ): Double = if (intelligence.score >= 13 && strength.score >= 13) {
+        .05
+    } else if (intelligence.score >= 16 && strength.score >= 13) {
+        .1
+    } else {
+        0.0
     }
 }
 

@@ -44,18 +44,14 @@ internal class Dwarf : CharacterClass(
         Language.KOBOLD
     )
 ) {
-    override fun calculateMaxHitPoints(classLevel: Int, constitution: Constitution): Int {
-        var totalHP = 0
 
-        (1..classLevel).forEach {
-            when (it) {
-                in 1..9 -> totalHP += max(hitDice.random() + constitution.hitPointsModifier, 1)
-                else -> totalHP += 3
+    override fun calculateMaxHitPoints(classLevel: Int, constitution: Constitution): Int =
+        (1..classLevel).fold(0) { result, current ->
+            result + when (current) {
+                in 1..9 -> max(hitDice.random() + constitution.hitPointsModifier, 1)
+                else ->  3
             }
         }
-
-        return totalHP
-    }
 
     override fun calculateClassBasedExperienceBonus(
         strength: Strength,

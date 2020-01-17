@@ -1,10 +1,10 @@
 package charactersheet.characterclass
 
 import charactersheet.Language
-import charactersheet.abilityscores.AbilityScores
-import charactersheet.abilityscores.Constitution
+import charactersheet.abilityscores.*
 import charactersheet.equipment.Weapon
 import charactersheet.equipment.allBasicWeapons
+import kotlin.math.max
 
 internal class MagicUser : CharacterClass(
     listOf(AbilityScores.Type.INT),
@@ -37,7 +37,20 @@ internal class MagicUser : CharacterClass(
         Language.COMMON
     )
 ) {
-    override fun calculateMaxHitPoints(classLevel: Int, constitution: Constitution): Int {
-        return 0
-    }
+    override fun calculateMaxHitPoints(classLevel: Int, constitution: Constitution): Int =
+        (1..classLevel).fold(0) { result, current ->
+            result + when (current) {
+                in 1..9 -> max(hitDice.random() + constitution.hitPointsModifier, 1)
+                else -> 1
+            }
+        }
+
+    override fun calculateClassBasedExperienceBonus(
+        strength: Strength,
+        intelligence: Intelligence,
+        dexterity: Dexterity,
+        charisma: Charisma,
+        wisdom: Wisdom,
+        constitution: Constitution
+    ): Double = BasePrimeRequisite(intelligence.score).XPModifier
 }

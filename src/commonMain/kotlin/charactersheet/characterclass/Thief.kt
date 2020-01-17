@@ -1,10 +1,10 @@
 package charactersheet.characterclass
 
 import charactersheet.Language
-import charactersheet.abilityscores.AbilityScores
-import charactersheet.abilityscores.Constitution
+import charactersheet.abilityscores.*
 import charactersheet.equipment.allBasicWeapons
 import charactersheet.equipment.leatherArmor
+import kotlin.math.max
 
 internal class Thief : CharacterClass(
     listOf(AbilityScores.Type.DEX),
@@ -39,9 +39,22 @@ internal class Thief : CharacterClass(
         Language.COMMON
     )
 ) {
-    override fun calculateMaxHitPoints(classLevel: Int, constitution: Constitution): Int {
-        return 0
-    }
+    override fun calculateMaxHitPoints(classLevel: Int, constitution: Constitution): Int =
+        (1..classLevel).fold(0) { result, current ->
+            result + when (current) {
+                in 1..9 -> max(hitDice.random() + constitution.hitPointsModifier, 1)
+                else -> 2
+            }
+        }
+
+    override fun calculateClassBasedExperienceBonus(
+        strength: Strength,
+        intelligence: Intelligence,
+        dexterity: Dexterity,
+        charisma: Charisma,
+        wisdom: Wisdom,
+        constitution: Constitution
+    ): Double = BasePrimeRequisite(dexterity.score).XPModifier
 }
 
 internal class ThiefProgressionRow(
