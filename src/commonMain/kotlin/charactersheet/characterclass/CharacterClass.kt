@@ -5,6 +5,7 @@ import charactersheet.abilityscores.*
 import charactersheet.equipment.Armor
 import charactersheet.equipment.Weapon
 import charactersheet.equipment.allBasicArmor
+import kotlin.math.max
 
 internal abstract class CharacterClass(
     val primeRequisites: List<AbilityScores.Type>,
@@ -19,20 +20,23 @@ internal abstract class CharacterClass(
 ) {
     abstract fun calculateMaxHitPoints(classLevel: Int, constitution: Constitution): Int
 
-    open fun calculateSavingThrows(classLevel: Int, wisdom: Wisdom): BasicProgressionRow.SavingThrows {
-        val baseSaves = progression[classLevel].savingThrows
+    open fun baseSavingThrows(classLevel: Int): BasicProgressionRow.SavingThrows =
+        progression[classLevel - 1].savingThrows
+
+    open fun magicSavingThrows(classLevel: Int, wisdom: Wisdom): BasicProgressionRow.SavingThrows {
+        val baseSaves = baseSavingThrows(classLevel)
 
         return BasicProgressionRow.SavingThrows(
-            baseSaves.deathOrPoison + wisdom.magicSavesModifier,
-            baseSaves.wands + wisdom.magicSavesModifier,
-            baseSaves.paralysisOrPetrify + wisdom.magicSavesModifier,
+            max(baseSaves.deathOrPoison - wisdom.magicSavesModifier, 1),
+            max(baseSaves.wands - wisdom.magicSavesModifier, 1),
+            max(baseSaves.paralysisOrPetrify - wisdom.magicSavesModifier, 1),
             baseSaves.breathAttacks,
-            baseSaves.spellsRodsAndStaves + wisdom.magicSavesModifier
+            max(baseSaves.spellsRodsAndStaves - wisdom.magicSavesModifier, 1)
         )
     }
 
     open fun calculateAscendingAttackBonusesForWeapon(classLevel: Int, weapon: Weapon, strength: Strength, dexterity: Dexterity): AttackBonuses {
-        val baseAttackBonus = progression[classLevel].ascendingACAttackBonus
+        val baseAttackBonus = progression[classLevel - 1].ascendingACAttackBonus
         val meleeAttackBonus = if (Weapon.Qualities.MELEE in weapon.qualities) baseAttackBonus + strength.meleeModifier else 0
         val missileAttackBonus = if (Weapon.Qualities.MISSILE in weapon.qualities) baseAttackBonus + dexterity.missileModifier else 0
 
@@ -77,7 +81,7 @@ internal open class BasicProgressionRow(
     val ascendingACAttackBonus: Int,
     val savingThrows: SavingThrows
 ) {
-    internal class SavingThrows(
+    internal data class SavingThrows(
         val deathOrPoison: Int,
         val wands: Int,
         val paralysisOrPetrify: Int,

@@ -1,24 +1,24 @@
 package charactersheet.abilityscores
 
 class AbilityScores {
-    var strength = 0
-    var intelligence = 0
-    var wisdom = 0
-    var dexterity = 0
-    var constitution = 0
-    var charisma = 0
+    var strength = Strength()
+    var intelligence = Intelligence()
+    var wisdom = Wisdom()
+    var dexterity = Dexterity()
+    var constitution = Constitution()
+    var charisma = Charisma()
 
     init {
         roll3d6InOrder()
     }
 
     fun roll3d6InOrder() {
-        strength = (1..6).random() + (1..6).random() + (1..6).random()
-        intelligence = (1..6).random() + (1..6).random() + (1..6).random()
-        wisdom = (1..6).random() + (1..6).random() + (1..6).random()
-        dexterity = (1..6).random() + (1..6).random() + (1..6).random()
-        constitution = (1..6).random() + (1..6).random() + (1..6).random()
-        charisma = (1..6).random() + (1..6).random() + (1..6).random()
+        strength.score = (1..6).random() + (1..6).random() + (1..6).random()
+        intelligence.score = (1..6).random() + (1..6).random() + (1..6).random()
+        wisdom.score = (1..6).random() + (1..6).random() + (1..6).random()
+        dexterity.score = (1..6).random() + (1..6).random() + (1..6).random()
+        constitution.score = (1..6).random() + (1..6).random() + (1..6).random()
+        charisma.score = (1..6).random() + (1..6).random() + (1..6).random()
     }
 
     enum class Type {
