@@ -11,7 +11,7 @@ class ClericTests {
     @Test
     fun calculatedHitPointsFallInValidRangeWhenConBonusNegative() {
         val abilityScores = AbilityScores().apply {
-            constitution = Constitution(3) //-3 hit point modifier
+            constitution = Constitution(3)
         }
         val validRangesByLevel = listOf(
             1..3,
@@ -32,12 +32,12 @@ class ClericTests {
 
         //Testing randomized content is weird. Run the assertions enough times that there is very likely
         //a full spread over the range of random values
-        for(i in 0 until 100) {
-            validRangesByLevel.forEachIndexed { index, intRange ->
+        for (i in 0 until 100) {
+            validRangesByLevel.forEachIndexed { index, expectedRange ->
                 val characterLevel = index + 1
                 val calculatedHitPoints = Cleric().calculateMaxHitPoints(characterLevel, abilityScores.constitution)
 
-                assertTrue { calculatedHitPoints in validRangesByLevel[index] }
+                assertTrue { calculatedHitPoints in expectedRange }
             }
         }
     }
@@ -66,7 +66,7 @@ class ClericTests {
 
         //Testing randomized content is weird. Run the assertions enough times that there is very likely
         //a full spread over the range of random values
-        for(i in 0 until 100) {
+        for (i in 0 until 100) {
             validRangesByLevel.forEachIndexed { index, expectedRange ->
                 val characterLevel = index + 1
                 val calculatedHitPoints = Cleric().calculateMaxHitPoints(characterLevel, abilityScores.constitution)

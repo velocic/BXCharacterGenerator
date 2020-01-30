@@ -34,7 +34,7 @@ internal class Dwarf : CharacterClass(
     ),
     requirement = listOf(AbilityScoreRequirement(AbilityScores.Type.CON, 9)),
     allowedArmor = allBasicArmor,
-    allowedWeapons = allBasicWeapons.filter { it.type != Weapon.Types.LONGBOW && Weapon.Qualities.TWOHANDED !in it.qualities },
+    allowedWeapons = allBasicWeapons.filter { it.type != Weapon.Types.LONGBOW && it.type != Weapon.Types.TWOHANDEDSWORD },
     baseLanguages = listOf(
         Language.ALIGNMENT,
         Language.COMMON,
