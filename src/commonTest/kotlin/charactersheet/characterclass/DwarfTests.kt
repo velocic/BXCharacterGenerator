@@ -136,21 +136,130 @@ class DwarfTests {
 
     @Test
     fun dwarfCannotAccessIncorrectWeaponTypes() {
+        val expectedDisallowedWeaponTypes = listOf(
+            Weapon.Types.LONGBOW,
+            Weapon.Types.TWOHANDEDSWORD
+        )
+        val actualAllowedWeaponTypes = Dwarf().allowedWeapons.map { it.type }
+
+        expectedDisallowedWeaponTypes.forEach { expectedDisallowedType ->
+            assertTrue { expectedDisallowedType !in actualAllowedWeaponTypes }
+        }
     }
 
     @Test
     fun ascendingAttackBonusCalculatedCorrectlyWithPositiveBonus() {
+        val strength = Strength(18)
+        val dexterity = Dexterity(18)
+        val dwarf = Dwarf()
+        val testWeapon = allBasicWeapons.filter {
+            it.qualities.contains(Weapon.Qualities.MELEE) && it.qualities.contains(Weapon.Qualities.MISSILE)
+        }[0]
+
+        val expectedBonusByLevel = listOf(
+            3, 3, 3,
+            5, 5, 5,
+            8, 8, 8,
+            10, 10, 10
+        )
+
+        expectedBonusByLevel.forEachIndexed { index, expectedBonus ->
+            val classLevel = index + 1
+            val (meleeBonus, missileBonus) = dwarf.calculateAscendingAttackBonusesForWeapon(
+                classLevel,
+                testWeapon,
+                strength,
+                dexterity
+            )
+
+            assertEquals(expectedBonus, meleeBonus)
+            assertEquals(expectedBonus, missileBonus)
+        }
     }
 
     @Test
     fun ascendingAttackBonusCalculatedCorrectlyWithNegativeBonus() {
+        val strength = Strength(3)
+        val dexterity = Dexterity(3)
+        val dwarf = Dwarf()
+        val testWeapon = allBasicWeapons.filter {
+            it.qualities.contains(Weapon.Qualities.MELEE) && it.qualities.contains(Weapon.Qualities.MISSILE)
+        }[0]
+
+        val expectedBonusByLevel = listOf(
+            -3, -3, -3,
+            -1, -1, -1,
+            2, 2, 2,
+            4, 4, 4
+        )
+
+        expectedBonusByLevel.forEachIndexed { index, expectedBonus ->
+            val classLevel = index + 1
+            val (meleeBonus, missileBonus) = dwarf.calculateAscendingAttackBonusesForWeapon(
+                classLevel,
+                testWeapon,
+                strength,
+                dexterity
+            )
+
+            assertEquals(expectedBonus, meleeBonus)
+            assertEquals(expectedBonus, missileBonus)
+        }
     }
 
     @Test
     fun magicSavingThrowsCalculatedCorrectlyWithPositiveBonus() {
+        val wisdom = Wisdom(18)
+        val dwarf = Dwarf()
+
+        val expectedSavingThrows = listOf(
+            BasicProgressionRow.SavingThrows(5, 6, 7, 13, 9),
+            BasicProgressionRow.SavingThrows(5, 6, 7, 13, 9),
+            BasicProgressionRow.SavingThrows(5, 6, 7, 13, 9),
+            BasicProgressionRow.SavingThrows(3, 4, 5, 10, 7),
+            BasicProgressionRow.SavingThrows(3, 4, 5, 10, 7),
+            BasicProgressionRow.SavingThrows(3, 4, 5, 10, 7),
+            BasicProgressionRow.SavingThrows(1, 2, 3, 7, 5),
+            BasicProgressionRow.SavingThrows(1, 2, 3, 7, 5),
+            BasicProgressionRow.SavingThrows(1, 2, 3, 7, 5),
+            BasicProgressionRow.SavingThrows(1, 1, 1, 4, 3),
+            BasicProgressionRow.SavingThrows(1, 1, 1, 4, 3),
+            BasicProgressionRow.SavingThrows(1, 1, 1, 4, 3)
+        )
+
+        expectedSavingThrows.forEachIndexed { index, expectedSavingThrowsForLevel ->
+            val classLevel = index + 1
+            val actualSavingThrows = dwarf.magicSavingThrows(classLevel, wisdom)
+
+            assertEquals(expectedSavingThrowsForLevel, actualSavingThrows)
+        }
     }
 
     @Test
     fun magicSavingThrowsCalculatedCorrectlyWithNegativeBonus() {
+        val wisdom = Wisdom(3)
+        val dwarf = Dwarf()
+
+        val expectedSavingThrows = listOf(
+            BasicProgressionRow.SavingThrows(11, 12, 13, 13, 15),
+            BasicProgressionRow.SavingThrows(11, 12, 13, 13, 15),
+            BasicProgressionRow.SavingThrows(11, 12, 13, 13, 15),
+            BasicProgressionRow.SavingThrows(9, 10, 11, 10, 13),
+            BasicProgressionRow.SavingThrows(9, 10, 11, 10, 13),
+            BasicProgressionRow.SavingThrows(9, 10, 11, 10, 13),
+            BasicProgressionRow.SavingThrows(7, 8, 9, 7, 11),
+            BasicProgressionRow.SavingThrows(7, 8, 9, 7, 11),
+            BasicProgressionRow.SavingThrows(7, 8, 9, 7, 11),
+            BasicProgressionRow.SavingThrows(5, 6, 7, 4, 9),
+            BasicProgressionRow.SavingThrows(5, 6, 7, 4, 9),
+            BasicProgressionRow.SavingThrows(5, 6, 7, 4, 9)
+        )
+
+        expectedSavingThrows.forEachIndexed { index, expectedSavingThrowsForLevel ->
+            val classLevel = index + 1
+            val actualSavingThrows = dwarf.magicSavingThrows(classLevel, wisdom)
+
+            assertEquals(expectedSavingThrowsForLevel, actualSavingThrows)
+        }
     }
 }

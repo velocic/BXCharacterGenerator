@@ -57,10 +57,10 @@ internal class Elf : CharacterClass(
         charisma: Charisma,
         wisdom: Wisdom,
         constitution: Constitution
-    ): Double = if (intelligence.score >= 13 && strength.score >= 13) {
-        .05
-    } else if (intelligence.score >= 16 && strength.score >= 13) {
+    ): Double = if (intelligence.score >= 16 && strength.score >= 13) {
         .1
+    } else if (intelligence.score >= 13 && strength.score >= 13) {
+        .05
     } else {
         0.0
     }
