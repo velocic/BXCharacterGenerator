@@ -37,17 +37,17 @@ class HalflingTests {
     @Test
     fun calculatedHitPointsFallInValidRangeWhenConBonusPositive() {
         val abilityScores = AbilityScores().apply {
-            constitution = Constitution(3)
+            constitution = Constitution(18)
         }
         val validRangesBylevel = listOf(
-            1..9,
-            1..18,
-            1..27,
-            1..36,
-            1..45,
-            1..54,
-            1..63,
-            1..72
+            4..9,
+            8..18,
+            12..27,
+            16..36,
+            20..45,
+            24..54,
+            28..63,
+            32..72
         )
 
         for (i in 0 until 100) {
