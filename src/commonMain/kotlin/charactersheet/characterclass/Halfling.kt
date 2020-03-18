@@ -35,7 +35,7 @@ internal class Halfling : CharacterClass(
         AbilityScoreRequirement(AbilityScores.Type.DEX, 9)
     ),
     allowedArmor = allBasicArmor,
-    allowedWeapons = allBasicWeapons.filter { it.type != Weapon.Types.LONGBOW && Weapon.Qualities.TWOHANDED !in it.qualities },
+    allowedWeapons = allBasicWeapons.filter { it.type != Weapon.Types.LONGBOW && it.type != Weapon.Types.TWOHANDEDSWORD },
     baseLanguages = listOf(
         Language.ALIGNMENT,
         Language.COMMON,
@@ -50,6 +50,21 @@ internal class Halfling : CharacterClass(
             }
         }
 
+    override fun calculateAscendingAttackBonusesForWeapon(
+        classLevel: Int,
+        weapon: Weapon,
+        strength: Strength,
+        dexterity: Dexterity
+    ): AttackBonuses = super.calculateAscendingAttackBonusesForWeapon(
+        classLevel,
+        weapon,
+        strength,
+        dexterity
+    ).let { (meleeBonus, missileBonus) ->
+        val modifiedMissileBonus = if (missileBonus == 0) { 0 } else { missileBonus + 1}
+        AttackBonuses(meleeBonus, modifiedMissileBonus)
+    }
+
     override fun calculateClassBasedExperienceBonus(
         strength: Strength,
         intelligence: Intelligence,
@@ -57,10 +72,10 @@ internal class Halfling : CharacterClass(
         charisma: Charisma,
         wisdom: Wisdom,
         constitution: Constitution
-    ): Double = if (dexterity.score >= 13 || strength.score >= 13) {
-        .05
-    } else if (dexterity.score >= 16 && strength.score >= 16) {
+    ): Double = if (dexterity.score >= 16 && strength.score >= 16) {
         .1
+    } else if (dexterity.score >= 13 || strength.score >= 13) {
+        .05
     } else {
         0.0
     }

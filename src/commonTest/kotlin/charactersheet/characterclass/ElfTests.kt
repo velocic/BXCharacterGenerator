@@ -76,9 +76,7 @@ class ElfTests {
             AbilityScores().apply { strength.score = 13; intelligence.score = 16 } to 0.10
         )
 
-        testInputToExpectedOutput.forEach {
-            val (inputData, expectedResult) = it
-
+        testInputToExpectedOutput.forEach { (inputData, expectedResult) ->
             val actualResult = Elf().calculateClassBasedExperienceBonus(
                 inputData.strength,
                 inputData.intelligence,
